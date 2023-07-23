@@ -141,6 +141,31 @@ public class DocElement internal constructor(
     public fun <T> siblings(init: List<DocElement>.() -> T): T = siblings.init()
 
     /**
+     * Get the next sibling element
+     * @return DocElement
+     */
+    public val nextSibling: DocElement by lazy {
+        DocElement(element.nextElementSibling()?: throw ElementNotFoundException("Next Sibling"))
+    }
+
+    /**
+     * Get the next sibling element as a lambda
+     */
+    public fun <T> nextSibling(init:DocElement.() -> T): T = nextSibling.init()
+
+    /**
+     * Get all elements that are the next siblings of this element.
+     * @return List<DocElement> of next siblings.
+     */
+    public val nextSiblings: List<DocElement> by lazy { element.nextElementSiblings().map { DocElement(it)} }
+
+    /**
+     * Get all elements that are next siblings of this element as lambda.
+     * @return T
+     */
+    public fun <T> nextSiblings(init: List<DocElement>.() -> T): T = nextSiblings.init()
+
+    /**
      * Check if the element is present thereby it will return true if the given node can be found otherwise false.
      * @return Boolean
      */
